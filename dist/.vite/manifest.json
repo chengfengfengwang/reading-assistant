@@ -1,0 +1,43 @@
+{
+  "../../../../@crx/manifest": {
+    "file": "assets/crx-manifest.js-CAjmrnDr.js",
+    "name": "crx-manifest.js",
+    "src": "../../../../@crx/manifest",
+    "isEntry": true
+  },
+  "_tailwind-!~{003}~.js": {
+    "file": "assets/tailwind-CLJNtOvE.css",
+    "src": "_tailwind-!~{003}~.js"
+  },
+  "_tailwind-CRaF-Arp.js": {
+    "file": "assets/tailwind-CRaF-Arp.js",
+    "name": "tailwind",
+    "css": [
+      "assets/tailwind-CLJNtOvE.css"
+    ]
+  },
+  "src/pages/background/index.ts": {
+    "file": "assets/index.ts-eTY9xp33.js",
+    "name": "index.ts",
+    "src": "src/pages/background/index.ts",
+    "isEntry": true
+  },
+  "src/pages/options/index.html": {
+    "file": "assets/index.html-DkOvjHRh.js",
+    "name": "index.html",
+    "src": "src/pages/options/index.html",
+    "isEntry": true,
+    "imports": [
+      "_tailwind-CRaF-Arp.js"
+    ]
+  },
+  "src/pages/sidePanel/index.html": {
+    "file": "assets/sidePanel-DkOvjHRh.js",
+    "name": "sidePanel",
+    "src": "src/pages/sidePanel/index.html",
+    "isEntry": true,
+    "imports": [
+      "_tailwind-CRaF-Arp.js"
+    ]
+  }
+}
