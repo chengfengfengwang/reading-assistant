@@ -7,17 +7,13 @@ const settingAtom = atom<Setting>({});
 export function useSetting() {
   const [setting, _setSetting] = useAtom(settingAtom);
   const setSetting = useCallback((props:Partial<Setting>)=> {
-    _setSetting((prev) => ({...prev, ...props}));
-    console.log('props:', props);
-    
+    _setSetting((prev) => ({...prev, ...props}));    
     chrome.storage.sync.set(props)
   }, [])
   
   useEffect(()=> {
     const initSetting = ()=> {
-      chrome.storage.sync.get().then(res => {
-        console.log('get:', res);
-        
+      chrome.storage.sync.get().then(res => {        
         _setSetting(res)
       })
     };

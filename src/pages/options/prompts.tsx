@@ -83,8 +83,9 @@ export default function Prompts() {
     closeModal();
   };
   return (
-    <div className="w-[600px]">
+    <div>
       <div className="mt-4">
+        <div className="font-semibold text-[17px] mb-3">Prompts</div>
         <div onClick={onAdd} className="btn btn-neutral btn-sm mr-2">
           <Plus className="w-[14px] h-[14px]" />
           Add
@@ -92,14 +93,14 @@ export default function Prompts() {
         <div className="dropdown">
           <button tabIndex={0} role="button" className="btn btn-neutral btn-sm">
             <RotateCw className="w-[14px] h-[14px]" />
-            Reset To Initial Settings
+            Reset
           </button>
           <div
             tabIndex={0}
             className="dropdown-content card card-compact w-[170px] bg-base-200 text-base-content text-xs"
           >
             <div className="card-body items-center text-center">
-              <p className="text-[13px]">Confirm Question</p>
+              <p className="text-[13px]">Are you sure?</p>
               <div className="card-actions justify-end">
                 <button
                   onMouseDown={closeConfirm}
@@ -170,7 +171,7 @@ function Item({
       {...listeners}
       className="cursor-move group my-4 flex justify-between space-x-1 items-center  p-4  rounded-lg border text-sm"
     >
-      <div className="w-[100px] mr-2 whitespace-nowrap text-ellipsis">
+      <div className="w-[120px] shrink-0 border-r mr-4 whitespace-nowrap overflow-hidden text-ellipsis">
         {title}
       </div>
       <div className="flex-grow">{content}</div>

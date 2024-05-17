@@ -12,10 +12,12 @@
   "dependencies": {
     "@dnd-kit/sortable": "^8.0.0",
     "@dnd-kit/utilities": "^3.2.2",
+    "eventsource-parser": "^1.1.2",
     "jotai": "^2.8.0",
     "lucide-react": "^0.378.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.13"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.23",

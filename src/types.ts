@@ -8,4 +8,5 @@ export interface Setting {
   openAIAddress?: string;
   openAIModel?: string;
   prompts?: Prompt[];
+  openAIModelList?:{label:string,value:string}[]
 }
