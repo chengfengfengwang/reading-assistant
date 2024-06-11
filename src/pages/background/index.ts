@@ -81,17 +81,8 @@ const initContextMenu = () => {
   });
 };
 const openSidePanel = (
-  tabId: number,
-  initPromptId?: string | number,
-  selectionText?: string
+  tabId: number
 ) => {
-  // let path = `src/pages/sidePanel/index.html?tabId=${tabId}`;
-  // if (typeof initPromptId !== "undefined") {
-  //   path += `&initPromptId=${initPromptId}`;
-  // }
-  // if (typeof selectionText !== "undefined") {
-  //   path += `&selectionText=${selectionText}`;
-  // }
 
   let path = `src/pages/sidePanel/index.html`;
   chrome.sidePanel.setOptions({
@@ -141,7 +132,7 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.onClicked.addListener((info, tab) => {
     const tabId = tab?.id;
     if (typeof tabId === "number") {      
-      openSidePanel(tabId, info.menuItemId, info.selectionText);
+      openSidePanel(tabId);
       // inject content_script
       chrome.scripting.executeScript({
         target: { tabId },
