@@ -1,3 +1,3 @@
 #!/bin/bash
 cd dist
-zip -r ../chrome.zip .;
+zip -r ../reading-assistant.zip .;

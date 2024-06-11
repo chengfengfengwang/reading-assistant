@@ -2,7 +2,7 @@
 A Chrome Extension Enhance web reading and learning experience using AI
 
 ## how to use
-1. download and unzip chrome.zip from this project's releases
+1. download and unzip reading-assistant.zip from this project's releases
 2. open chrome browser and load the unziped folder
 3. write your own openAI key in extension
 
