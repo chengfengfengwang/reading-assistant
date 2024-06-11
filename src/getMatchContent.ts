@@ -4,8 +4,8 @@ import { OpenAIEmbeddings } from "@langchain/openai";
 
 export async function getMatchContent({query,context,openAIApiKey}:{query:string,context:string,openAIApiKey:string}) {  
   const textSplitter = new RecursiveCharacterTextSplitter({
-    chunkSize: 300,
-    chunkOverlap:50
+    chunkSize: 500,
+    chunkOverlap:80
   });  
   const splits = await textSplitter.createDocuments([context]);  
   const embeddingModel = new OpenAIEmbeddings({
