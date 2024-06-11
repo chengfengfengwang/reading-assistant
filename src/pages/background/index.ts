@@ -38,7 +38,7 @@ const injectedFunction = ({
       payload: { selectionText, promptId },
     });
   } else {
-    const handleConnect = (port:chrome.runtime.Port) => {
+    const handleConnect = (port: chrome.runtime.Port) => {
       // sidePanel发起初始化连接，将port保存起来，并且回复当前prompId和selectionText
       if (port.name === "readingAssistantSidePanelInit") {
         console.log("--init--");
@@ -46,18 +46,24 @@ const injectedFunction = ({
         port.onDisconnect.addListener(function () {
           console.log("--disconnect--");
           window.readingAssistantExtensionPort = undefined;
-          chrome.runtime.onConnect.removeListener(handleConnect)
+          chrome.runtime.onConnect.removeListener(handleConnect);
         });
-        port.postMessage({ type: "chat", payload: { selectionText, promptId }});
-        port.onMessage.addListener(function(message) {
-          console.log('--message--',message);
-          
-          if (message.type === 'getPageText') {
-            port.postMessage({type: 'pageText', payload:{content:document.body.innerText}})
+        port.postMessage({
+          type: "chat",
+          payload: { selectionText, promptId },
+        });
+        port.onMessage.addListener(function (message) {
+          console.log("--message--", message);
+
+          if (message.type === "getPageText") {
+            port.postMessage({
+              type: "pageText",
+              payload: { content: document.body.innerText },
+            });
           }
-        })
+        });
       }
-    }
+    };
     chrome.runtime.onConnect.addListener(handleConnect);
   }
 };
@@ -80,10 +86,7 @@ const initContextMenu = () => {
     }
   });
 };
-const openSidePanel = (
-  tabId: number
-) => {
-
+const openSidePanel = (tabId: number) => {
   let path = `src/pages/sidePanel/index.html`;
   chrome.sidePanel.setOptions({
     tabId: tabId,
@@ -109,16 +112,18 @@ chrome.runtime.onMessage.addListener((message, sender) => {
   })();
 });
 chrome.action.onClicked.addListener(function (tab) {
-  const tabId = tab.id;
-  if (typeof tabId === "number") {
-    openSidePanel(tabId);
-    chrome.scripting.executeScript({
-      target: { tabId },
-      func: injectedFunction,
-      args: [
-        { selectionText: undefined, promptId: undefined },
-      ],
-    });
+  if (tab.url?.startsWith('chrome://')) {
+    chrome.runtime.openOptionsPage()
+  } else {
+    const tabId = tab.id;
+    if (typeof tabId === "number") {
+      openSidePanel(tabId);
+      chrome.scripting.executeScript({
+        target: { tabId },
+        func: injectedFunction,
+        args: [{ selectionText: undefined, promptId: undefined }],
+      });
+    }
   }
 });
 chrome.runtime.onInstalled.addListener(() => {
@@ -131,7 +136,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
   chrome.contextMenus.onClicked.addListener((info, tab) => {
     const tabId = tab?.id;
-    if (typeof tabId === "number") {      
+    if (typeof tabId === "number") {
       openSidePanel(tabId);
       // inject content_script
       chrome.scripting.executeScript({
