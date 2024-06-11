@@ -1,5 +1,5 @@
 import { defaultSetting } from "@/const";
-import { SquarePen, Trash2, RotateCw, Plus } from "lucide-react";
+import { SquarePen, Trash2, RotateCw, Plus, Info } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -229,13 +229,16 @@ function EditDialog({
             <div>
               <span className="inline-block mb-1">
                 <span className="font-semibold mr-2">Content</span>
+                <div className="flex items-center gap-1">
+                  <Info className="w-[12px] h-[12px] opacity-80" />
+                  <span className="text-gray-500">{`You can use {selectionText} represents the selected text`}</span>
+                </div>
               </span>
-              <input
+              <textarea
                 id="content"
-                type="text"
                 value={content}
                 onInput={(e) => setContent((e.target as HTMLInputElement).value)}
-                className="w-full input input-bordered"
+                className="w-full textarea textarea-bordered"
               />
             </div>
             <div className="text-right space-x-2">

@@ -18,7 +18,10 @@ export default function useChat({
   );
   const chatInstance = useRef<Chat | null>(null);
   const { showBoundary } = useErrorBoundary();
-
+  const clearMessage = () => {
+    chatInstance.current?.clearMessage();
+    setMessageList([])
+  }
   useEffect(() => {
     // if (chatInstance.current) {
     //   return;
@@ -56,5 +59,6 @@ export default function useChat({
     generating,
     chatInstance,
     messageList,
+    clearMessage
   };
 }

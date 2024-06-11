@@ -106,7 +106,7 @@ export default class OpenAIClass implements Chat {
     }
   }
   clearMessage() {
-    this.controller.abort('card is hidden')
+    this.controller.abort()
     this.messageList = []
     this.onClear && this.onClear()
   }
@@ -115,7 +115,7 @@ export default class OpenAIClass implements Chat {
     this.sendMessage()
   }
   abort(){
-    this.controller.abort('card is hidden')
+    this.controller.abort()
   };
 }
 

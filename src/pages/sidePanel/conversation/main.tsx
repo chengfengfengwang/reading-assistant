@@ -5,30 +5,46 @@ import useChat from "./useChat";
 import { EngineValue } from "./types";
 import { ErrorBoundary } from "react-error-boundary";
 import FallbackComponent from "./fallbackComponent";
+import { ReactElement, forwardRef, useImperativeHandle, useRef } from "react";
+import Markdown from 'react-markdown'
 
 interface ConversationProps {
   preMessageList?: Message[];
   className?: string;
   engine: EngineValue;
+  toolSlot?: ReactElement
 }
-export function ConversationMain({
-  preMessageList,
-  className,
-  engine,
-}: ConversationProps) {
+interface ConversationExpose {
+  sendMessage: (content?:string) => void,
+  clearMessage: ()=>void,
+  getInput: ()=>string
+}
+type ChatInputExpose = React.ElementRef<typeof ChatInput>
+const ConversationMain = forwardRef<ConversationExpose, ConversationProps>(function (params: ConversationProps, ref) {
+  const { preMessageList, className, engine } = params;
   const { messageList, loading, generating, chatInstance } = useChat({
     preMessageList,
     engine,
   });
-  console.log(messageList,loading);
-  
-  const handleRequest = (content: string) => {
+  const chatInputRef = useRef<ChatInputExpose>(null)
+  const handleRequest = (content?: string) => {
     chatInstance.current?.sendMessage(content);
+    chatInputRef.current?.setInput('')
   };
 
-  // const renderMessageList = messageList.filter(
-  //   (_item,index) => chatInstance.current instanceof GeminiClass ? (index !== 0 && index !==1 ) : index !== 0
-  // );
+  useImperativeHandle(ref, ()=>{
+    return {
+      sendMessage: (content?:string) => {
+        handleRequest(content)
+      },
+      clearMessage: () => {
+        chatInstance.current?.clearMessage()
+      },
+      getInput() {
+        return chatInputRef.current!.getInput()
+      },
+    }
+  })
   return (
     <div
       className={`h-full overflow-auto pt-3  flex flex-col justify-between ${className}`}
@@ -54,10 +70,9 @@ export function ConversationMain({
                     item.isError ? "text-error-content" : ""
                   } group rounded-3xl  px-4 py-3 relative shadow break-words min-w-0`}
                 >
-                  {item.content}
-                  {(loading || generating) && index === messageList.length - 1 && (
-                    <InputBlink />
-                  )}
+                  <Markdown>{item.content}</Markdown>
+                  {(loading || generating) &&
+                    index === messageList.length - 1 && <InputBlink />}
                 </div>
               </div>
             );
@@ -65,13 +80,16 @@ export function ConversationMain({
         </div>
       </div>
       <div className="shrink-0">
-        <ChatInput onSubmit={handleRequest} placeholder=""></ChatInput>
+        {
+          params.toolSlot ? params.toolSlot :null
+        }
+        <ChatInput ref={chatInputRef} onSubmit={handleRequest} placeholder=""></ChatInput>
       </div>
     </div>
   );
-}
+});
 
-export default function Conversation(props: ConversationProps) {
+export default forwardRef<ConversationExpose, ConversationProps>(function Conversation(props: ConversationProps, ref) {
   return (
     <div className="h-full">
       <ErrorBoundary
@@ -79,8 +97,8 @@ export default function Conversation(props: ConversationProps) {
           <FallbackComponent fallbackProps={fallbackProps} />
         )}
       >
-        <ConversationMain {...props} />
+        <ConversationMain ref={ref} {...props} />
       </ErrorBoundary>
     </div>
   );
-}
+});

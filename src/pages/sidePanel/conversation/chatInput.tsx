@@ -1,17 +1,25 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { Send } from 'lucide-react'
-//import { useCardContext } from '@/context/cardContext'
-// import useActionList from '@/hooks/useActionList'
-
-export default function ChatInput ({
-  onSubmit,
-  placeholder
-}: {
+interface ChatInputProps {
   onSubmit: (msg: string) => void
   placeholder?: string
-}) {
-
-  const [value, setValue] = useState('')
+}
+interface ChatInputExpose {
+  getInput: ()=>string,
+  setInput: (v:string) => void
+}
+export default forwardRef<ChatInputExpose,ChatInputProps>(function ChatInput (params,ref) {
+  const [value, setValue] = useState('');
+  const {
+    onSubmit,
+    placeholder
+  } = params;
+  useImperativeHandle(ref, ()=> {
+    return {
+      getInput: () => value,
+      setInput: (v:string) => setValue(v)
+    }
+  })
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const handleSubmit = () => {
     if (value.trim() === '') return
@@ -79,4 +87,5 @@ export default function ChatInput ({
       </div>
     </div>
   )
-}
+}) 
+

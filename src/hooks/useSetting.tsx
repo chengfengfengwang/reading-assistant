@@ -19,20 +19,6 @@ export function useSetting() {
     };
     initSetting()
   }, [])
-  // useEffect(() => {
-  //   const handleSync = (
-  //     changes: { [key: string]: chrome.storage.StorageChange },
-  //     area: string
-  //   ) => {
-  //     if (area === "sync") {
-  //       setSetting(changes["setting"].newValue);
-  //     }
-  //   };
-  //   chrome.storage.onChanged.addListener(handleSync);
-  //   return () => {
-  //     chrome.storage.onChanged.removeListener(handleSync);
-  //   };
-  // }, []);
   return {
     setting,
     setSetting

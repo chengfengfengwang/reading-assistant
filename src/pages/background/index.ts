@@ -49,6 +49,13 @@ const injectedFunction = ({
           chrome.runtime.onConnect.removeListener(handleConnect)
         });
         port.postMessage({ type: "chat", payload: { selectionText, promptId }});
+        port.onMessage.addListener(function(message) {
+          console.log('--message--',message);
+          
+          if (message.type === 'getPageText') {
+            port.postMessage({type: 'pageText', payload:{content:document.body.innerText}})
+          }
+        })
       }
     }
     chrome.runtime.onConnect.addListener(handleConnect);
@@ -133,7 +140,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
   chrome.contextMenus.onClicked.addListener((info, tab) => {
     const tabId = tab?.id;
-    if (typeof tabId === "number") {
+    if (typeof tabId === "number") {      
       openSidePanel(tabId, info.menuItemId, info.selectionText);
       // inject content_script
       chrome.scripting.executeScript({
