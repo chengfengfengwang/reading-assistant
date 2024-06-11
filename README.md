@@ -1,7 +1,7 @@
 # reading-assistant
 A Chrome Extension Enhance web reading and learning experience using AI
 
-![Video](./video.mov)
+![Video](./video.mp4)
 
 ## how to use
 1. download and unzip reading-assistant.zip from this project's releases
