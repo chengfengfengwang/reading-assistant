@@ -46,7 +46,7 @@ export default class OpenAIClass implements Chat {
       const setting = await getSyncStorage()
 
       const url =  setting.openAIAddress ?? "https://api.openai.com/v1/chat/completions"
-      const model = setting.openAIModel?? "gpt-4o"
+      const model = setting.openAIModel?? "gpt-4o-mini"
       const apiKey = setting.openAIKey
       if (!apiKey) {
         this.onError && this.onError('apiKey is empty')
