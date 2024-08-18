@@ -7,13 +7,9 @@ import { getMatchContent } from "@/getMatchContent";
 import { useSetting } from "@/hooks/useSetting";
 import { toastManager, ToastContainer } from "@/components/toast";
 import { Settings, Eraser, FileTerminal, TextSearch } from "lucide-react";
-import { getSyncStorage } from "@/storage";
+let currentSelectionText = '';
 type ConversationExpose = React.ElementRef<typeof Conversation>;
-const getPrompt = async (id: string) => {
-  const setting = await getSyncStorage();
-  const prompts = setting.prompts;
-  return prompts?.find((item) => item.id === id)?.content;
-};
+
 export default function App() {
   const { setting } = useSetting();
   const [matchContentLoading, setMatchContentLoading] = useState(false);
@@ -24,6 +20,8 @@ export default function App() {
   const getMainPageText = useCallback(async () => {
     return new Promise((resolve, _reject) => {
       portRef.current?.onMessage.addListener(function (message) {
+        console.log(message);
+        
         if (message.type === "pageText") {
           resolve(message.payload.content);
         }
@@ -39,22 +37,15 @@ export default function App() {
           name: "readingAssistantSidePanelInit",
         });
         portRef.current.onMessage.addListener(async function (message: {
-          payload: { selectionText?: string; promptId?: string };
+          type: string,
+          payload: { content?: string; };
         }) {
+          
           setConnectStatus(true);
           const payload = message.payload;
-          if (!payload.promptId) {
-            return;
+          if (message.type === 'selectionchange' && payload.content) {
+            currentSelectionText = payload.content
           }
-          const prompt = await getPrompt(payload.promptId);
-          if (prompt) {
-            const content = prompt.replace(
-              /\{selectionText\}/g,
-              () => payload.selectionText ?? ""
-            );
-            conversationRef.current?.sendMessage(content);
-          }
-          //
         });
         portRef.current.onDisconnect.addListener(function () {
           setConnectStatus(false);
@@ -109,6 +100,10 @@ export default function App() {
       conversationRef.current?.sendMessage(query);
     }, 300);
   };
+  const handlePrompt = (prompt:string) => {
+    const msg = prompt.replace(/\{selectionText\}/g, currentSelectionText)
+    conversationRef.current?.setInput(msg)
+  }
   useEffect(() => {
     sendConnectToContentScript();
     return () => {
@@ -170,6 +165,11 @@ export default function App() {
                     <TextSearch className="w-[16px] h-[16px]" />
                   )}
                 </div>
+                {
+                  setting.prompts?.map(item => (
+                    <div onClick={()=>handlePrompt(item.content)} className="btn btn-xs px-2 " key={item.id}>{item.title}</div>
+                  ))
+                }
               </div>
             }
             ref={conversationRef}

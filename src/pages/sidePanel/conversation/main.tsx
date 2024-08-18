@@ -17,7 +17,8 @@ interface ConversationProps {
 interface ConversationExpose {
   sendMessage: (content?:string) => void,
   clearMessage: ()=>void,
-  getInput: ()=>string
+  getInput: ()=>string,
+  setInput: (v:string)=>void
 }
 type ChatInputExpose = React.ElementRef<typeof ChatInput>
 const ConversationMain = forwardRef<ConversationExpose, ConversationProps>(function (params: ConversationProps, ref) {
@@ -42,6 +43,9 @@ const ConversationMain = forwardRef<ConversationExpose, ConversationProps>(funct
       },
       getInput() {
         return chatInputRef.current!.getInput()
+      },
+      setInput(v:string) {
+        return chatInputRef.current!.setInput(v)
       },
     }
   })
