@@ -1,4 +1,4 @@
-简体中文 ｜ [English](README_EN.md)
+English ｜ [简体中文](README.md)
 
 # reading-assistant
 A Chrome Extension that uses an OpenAI agent to chat with the current website.

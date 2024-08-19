@@ -1,3 +1,5 @@
+简体中文 ｜ [English](README_EN.md)
+
 # reading-assistant
 一个谷歌浏览器插件。使用OpenAI Agent和当前网页对话。
 
