@@ -12,7 +12,8 @@ interface ConversationProps {
   preMessageList?: Message[];
   className?: string;
   engine: EngineValue;
-  toolSlot?: ReactElement
+  toolSlot?: ReactElement;
+  sendSlot?:ReactElement
 }
 interface ConversationExpose {
   sendMessage: (content?:string) => void,
@@ -87,7 +88,7 @@ const ConversationMain = forwardRef<ConversationExpose, ConversationProps>(funct
         {
           params.toolSlot ? params.toolSlot :null
         }
-        <ChatInput ref={chatInputRef} onSubmit={handleRequest} placeholder=""></ChatInput>
+        <ChatInput sendSlot={params.sendSlot} ref={chatInputRef} onSubmit={handleRequest} placeholder=""></ChatInput>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import { getMatchContent } from "@/getMatchContent";
 import { useSetting } from "@/hooks/useSetting";
 import { toastManager, ToastContainer } from "@/components/toast";
 import { Settings, Eraser, FileTerminal, TextSearch } from "lucide-react";
-let currentSelectionText = '';
+let currentSelectionText = "";
 type ConversationExpose = React.ElementRef<typeof Conversation>;
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
     return new Promise((resolve, _reject) => {
       portRef.current?.onMessage.addListener(function (message) {
         console.log(message);
-        
+
         if (message.type === "pageText") {
           resolve(message.payload.content);
         }
@@ -37,14 +37,13 @@ export default function App() {
           name: "readingAssistantSidePanelInit",
         });
         portRef.current.onMessage.addListener(async function (message: {
-          type: string,
-          payload: { content?: string; };
+          type: string;
+          payload: { content?: string };
         }) {
-          
           setConnectStatus(true);
           const payload = message.payload;
-          if (message.type === 'selectionchange' && payload.content) {
-            currentSelectionText = payload.content
+          if (message.type === "selectionchange" && payload.content) {
+            currentSelectionText = payload.content;
           }
         });
         portRef.current.onDisconnect.addListener(function () {
@@ -100,10 +99,10 @@ export default function App() {
       conversationRef.current?.sendMessage(query);
     }, 300);
   };
-  const handlePrompt = (prompt:string) => {
-    const msg = prompt.replace(/\{selectionText\}/g, currentSelectionText)
-    conversationRef.current?.setInput(msg)
-  }
+  const handlePrompt = (prompt: string) => {
+    const msg = prompt.trim().replace(/\{selectionText\}/g, currentSelectionText.trim());
+    conversationRef.current?.setInput(msg);
+  };
   useEffect(() => {
     sendConnectToContentScript();
     return () => {
@@ -133,43 +132,55 @@ export default function App() {
         </div>
         <div className="grow">
           <Conversation
+            sendSlot={
+              <button
+                onClick={createMetchMessage}
+                data-tip="get matched context"
+                disabled={Boolean(matchContentLoading)}
+                className={`tooltip tooltip-left w-[24px] h-[24px] flex justify-center items-center cursor-pointer transition ${
+                  !matchContentLoading && "bg-neutral hover:bg-neutral-600"
+                } rounded-md p-1 text-white disabled:text-gray-400`}
+              >
+                {matchContentLoading ? (
+                  <span className="w-4/5 h-4/5 loading loading-spinner"></span>
+                ) : (
+                  <TextSearch className="w-4/5 h-4/5" />
+                )}
+              </button>
+            }
             toolSlot={
-              <div className="px-2 mb-1 flex items-center gap-2">
-                <div
-                  onClick={() => {
-                    setPreMessageList([]);
-                    conversationRef.current?.clearMessage();
-                  }}
-                  data-tip="clear"
-                  className=" btn btn-xs btn-square tooltip flex items-center justify-center"
-                >
-                  <Eraser className="w-[16px] h-[16px]" />
+              <div className="px-2 mb-1 flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                  <div
+                    onClick={() => {
+                      setPreMessageList([]);
+                      conversationRef.current?.clearMessage();
+                    }}
+                    data-tip="clear"
+                    className=" btn btn-xs btn-square tooltip flex items-center justify-center"
+                  >
+                    <Eraser className="w-[16px] h-[16px]" />
+                  </div>
+                  <div
+                    onClick={insertContext}
+                    data-tip="insert whole context"
+                    className=" btn btn-xs btn-square tooltip flex items-center justify-center"
+                  >
+                    <FileTerminal className="w-[16px] h-[16px]" />
+                  </div>
                 </div>
-                <div
-                  onClick={insertContext}
-                  data-tip="insert whole context"
-                  className=" btn btn-xs btn-square tooltip flex items-center justify-center"
-                >
-                  <FileTerminal className="w-[16px] h-[16px]" />
+
+                <div className="flex items-center gap-1">
+                  {setting.prompts?.map((item) => (
+                    <div
+                      onClick={() => handlePrompt(item.content)}
+                      className="btn btn-xs px-2 "
+                      key={item.id}
+                    >
+                      {item.title}
+                    </div>
+                  ))}
                 </div>
-                <div
-                  onClick={createMetchMessage}
-                  data-tip="get matched context"
-                  className={`${
-                    matchContentLoading ? "disabled" : ""
-                  } btn btn-xs btn-square tooltip flex items-center justify-center`}
-                >
-                  {matchContentLoading ? (
-                    <span className="w-[16px] h-[16px] loading loading-spinner"></span>
-                  ) : (
-                    <TextSearch className="w-[16px] h-[16px]" />
-                  )}
-                </div>
-                {
-                  setting.prompts?.map(item => (
-                    <div onClick={()=>handlePrompt(item.content)} className="btn btn-xs px-2 " key={item.id}>{item.title}</div>
-                  ))
-                }
               </div>
             }
             ref={conversationRef}
