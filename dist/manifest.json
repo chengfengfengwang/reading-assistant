@@ -23,17 +23,5 @@
   "background": {
     "service_worker": "service-worker-loader.js",
     "type": "module"
-  },
-  "web_accessible_resources": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "resources": [
-        "**/*",
-        "*"
-      ],
-      "use_dynamic_url": true
-    }
-  ]
+  }
 }

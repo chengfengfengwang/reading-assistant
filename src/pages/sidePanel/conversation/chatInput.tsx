@@ -6,7 +6,7 @@ import {
   useImperativeHandle,
   ReactElement,
 } from "react";
-import { Send, SendHorizonal, TextSearch } from "lucide-react";
+import { SendHorizonal, TextSearch } from "lucide-react";
 interface ChatInputProps {
   onSubmit: (msg: string) => void;
   placeholder?: string;

@@ -1,14 +1,15 @@
 # reading-assistant
-A Chrome Extension Enhance web reading and learning experience using AI
+一个谷歌浏览器插件。使用OpenAI Agent和当前网页对话。
+
 
 [![Video](./video.mp4)
 ](https://github.com/chengfengfengwang/reading-assistant/assets/23279667/30abb679-fbce-455d-a219-f521a0cb3bd3
 )
 
-## how to use
-1. download and unzip reading-assistant.zip from this project's releases
-2. open chrome browser and load the unziped folder
-3. write your own openAI key in extension
+## 下载使用
+1. 从releases下载
+2. 解压下载文件，在浏览器扩展加载该文件
+3. 输入自己的OpenAI Key
 
 ## development
 1. git clone 
