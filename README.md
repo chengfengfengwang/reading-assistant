@@ -10,7 +10,7 @@
 
 ## 下载使用
 1. 从releases下载
-2. 解压下载文件，在浏览器扩展加载该文件
+2. 解压reading-assistant.zip，在浏览器扩展加载该文件
 3. 输入自己的OpenAI Key
 
 ## development
