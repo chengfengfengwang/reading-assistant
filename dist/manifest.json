@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "reading assistant",
-  "version": "1.0.2.0",
-  "version_name": "1.0.2",
+  "version": "1.0.3.0",
+  "version_name": "1.0.3",
   "icons": {
     "128": "src/assets/icon.png"
   },
@@ -23,17 +23,5 @@
   "background": {
     "service_worker": "service-worker-loader.js",
     "type": "module"
-  },
-  "web_accessible_resources": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "resources": [
-        "**/*",
-        "*"
-      ],
-      "use_dynamic_url": true
-    }
-  ]
+  }
 }
