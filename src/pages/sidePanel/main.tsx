@@ -94,7 +94,6 @@ export default function App() {
         content: `context: ${context}`,
       },
     ]);
-    return
     setTimeout(() => {
       conversationRef.current?.sendMessage(query);
     }, 300);
