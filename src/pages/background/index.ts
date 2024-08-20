@@ -4,16 +4,12 @@ const injectedFunction = () => {
     const handleConnect = (port: chrome.runtime.Port) => {
       // sidePanel发起初始化连接，将port保存起来，并且回复当前prompId和selectionText
       if (port.name === "readingAssistantSidePanelInit") {
-        console.log("--init--");
         window.readingAssistantExtensionPort = port;
         port.onDisconnect.addListener(function () {
-          console.log("--disconnect--");
           window.readingAssistantExtensionPort = undefined;
           chrome.runtime.onConnect.removeListener(handleConnect);
         });
         port.onMessage.addListener(function (message) {
-          console.log("--message--", message);
-
           if (message.type === "getPageText") {
             port.postMessage({
               type: "pageText",
@@ -25,7 +21,6 @@ const injectedFunction = () => {
     };
     chrome.runtime.onConnect.addListener(handleConnect);
     document.addEventListener('selectionchange', function(){
-      console.log(document.getSelection());
       window.readingAssistantExtensionPort?.postMessage({
         type: 'selectionchange',
         payload: { content: document.getSelection()?.toString() },

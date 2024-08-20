@@ -7,6 +7,7 @@ import { getMatchContent } from "@/getMatchContent";
 import { useSetting } from "@/hooks/useSetting";
 import { toastManager, ToastContainer } from "@/components/toast";
 import { Settings, Eraser, FileTerminal, TextSearch } from "lucide-react";
+import { defaultSetting } from "@/const";
 let currentSelectionText = "";
 type ConversationExpose = React.ElementRef<typeof Conversation>;
 
@@ -20,8 +21,6 @@ export default function App() {
   const getMainPageText = useCallback(async () => {
     return new Promise((resolve, _reject) => {
       portRef.current?.onMessage.addListener(function (message) {
-        console.log(message);
-
         if (message.type === "pageText") {
           resolve(message.payload.content);
         }
@@ -95,6 +94,7 @@ export default function App() {
         content: `context: ${context}`,
       },
     ]);
+    return
     setTimeout(() => {
       conversationRef.current?.sendMessage(query);
     }, 300);
@@ -112,8 +112,7 @@ export default function App() {
         setConnectStatus(false);
       }
     };
-  }, [sendConnectToContentScript]);
-
+  }, [sendConnectToContentScript]);  
   return (
     <>
       <div className="flex flex-col justify-between pt-3 h-[100vh]">
@@ -171,7 +170,7 @@ export default function App() {
                 </div>
 
                 <div className="flex items-center gap-1">
-                  {setting.prompts?.map((item) => (
+                  {((setting.prompts?.length ? setting.prompts : null) ?? defaultSetting.prompts).map((item) => (
                     <div
                       onClick={() => handlePrompt(item.content)}
                       className="btn btn-xs px-2 "
