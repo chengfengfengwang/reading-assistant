@@ -28,6 +28,16 @@ export default function App() {
       portRef.current?.postMessage({ type: "getPageText" });
     });
   }, []);
+  const getSelectionText = useCallback(async () => {
+    return new Promise((resolve, _reject) => {
+      portRef.current?.onMessage.addListener(function (message) {
+        if (message.type === "selectionText") {
+          resolve(message.payload.content);
+        }
+      });
+      portRef.current?.postMessage({ type: "getSelectionText" });
+    });
+  }, []);
   const sendConnectToContentScript = useCallback(() => {
     chrome.tabs.query({ active: true }).then(([tab]) => {
       const tabId = tab.id;
@@ -35,16 +45,7 @@ export default function App() {
         portRef.current = chrome.tabs.connect(tabId, {
           name: "readingAssistantSidePanelInit",
         });
-        portRef.current.onMessage.addListener(async function (message: {
-          type: string;
-          payload: { content?: string };
-        }) {
-          setConnectStatus(true);
-          const payload = message.payload;
-          if (message.type === "selectionchange" && payload.content) {
-            currentSelectionText = payload.content;
-          }
-        });
+        
         portRef.current.onDisconnect.addListener(function () {
           setConnectStatus(false);
           portRef.current = undefined;
@@ -98,8 +99,9 @@ export default function App() {
       conversationRef.current?.sendMessage(query);
     }, 300);
   };
-  const handlePrompt = (prompt: string) => {
-    const msg = prompt.trim().replace(/\{selectionText\}/g, currentSelectionText.trim());
+  const handlePrompt = async (prompt: string) => {
+    const selectionText = await getSelectionText();
+    const msg = prompt.trim().replace(/\{selectionText\}/g, (selectionText as string).trim());
     conversationRef.current?.setInput(msg);
   };
   useEffect(() => {

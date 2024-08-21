@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "reading assistant",
-  "version": "1.0.4.0",
-  "version_name": "1.0.4",
+  "version": "1.0.2.0",
+  "version_name": "1.0.2",
   "icons": {
     "128": "src/assets/icon.png"
   },

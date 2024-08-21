@@ -16,16 +16,16 @@ const injectedFunction = () => {
               payload: { content: document.body.innerText },
             });
           }
+          if (message.type === "getSelectionText") {
+            port.postMessage({
+              type: "selectionText",
+              payload: { content: document.getSelection()?.toString() ?? '' },
+            });
+          }
         });
       }
     };
     chrome.runtime.onConnect.addListener(handleConnect);
-    document.addEventListener('selectionchange', function(){
-      window.readingAssistantExtensionPort?.postMessage({
-        type: 'selectionchange',
-        payload: { content: document.getSelection()?.toString() },
-      })
-    })
   }
 };
 

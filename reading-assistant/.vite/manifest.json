@@ -1,0 +1,51 @@
+{
+  "../../../../@crx/manifest": {
+    "file": "assets/crx-manifest.js-7xTTXsYi.js",
+    "name": "crx-manifest.js",
+    "src": "../../../../@crx/manifest",
+    "isEntry": true
+  },
+  "_const-CVqFB6Xv.js": {
+    "file": "assets/const-CVqFB6Xv.js",
+    "name": "const"
+  },
+  "_toast-!~{003}~.js": {
+    "file": "assets/toast-DYl1ry3e.css",
+    "src": "_toast-!~{003}~.js"
+  },
+  "_toast-CFoZG5HZ.js": {
+    "file": "assets/toast-CFoZG5HZ.js",
+    "name": "toast",
+    "css": [
+      "assets/toast-DYl1ry3e.css"
+    ]
+  },
+  "src/pages/background/index.ts": {
+    "file": "assets/index.ts-CRDMFak1.js",
+    "name": "index.ts",
+    "src": "src/pages/background/index.ts",
+    "isEntry": true,
+    "imports": [
+      "_const-CVqFB6Xv.js"
+    ]
+  },
+  "src/pages/options/index.html": {
+    "file": "assets/index.html-DdR2V0bq.js",
+    "name": "index.html",
+    "src": "src/pages/options/index.html",
+    "isEntry": true,
+    "imports": [
+      "_toast-CFoZG5HZ.js",
+      "_const-CVqFB6Xv.js"
+    ]
+  },
+  "src/pages/sidePanel/index.html": {
+    "file": "assets/sidePanel-wEQbSPE-.js",
+    "name": "sidePanel",
+    "src": "src/pages/sidePanel/index.html",
+    "isEntry": true,
+    "imports": [
+      "_toast-CFoZG5HZ.js"
+    ]
+  }
+}
