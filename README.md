@@ -3,8 +3,8 @@
 # reading-assistant
 一个谷歌浏览器插件。使用OpenAI Agent和当前网页对话。
 
+https://github.com/user-attachments/assets/63b52d2d-9f3c-44b2-b091-441a83e6f7be
 
-https://github.com/user-attachments/assets/a39f40ec-72ad-4b9d-87c8-a16008f9adf5
 
 
 ## 下载使用
