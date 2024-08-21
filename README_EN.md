@@ -3,10 +3,8 @@ English ｜ [简体中文](README.md)
 # reading-assistant
 A Chrome Extension that uses an OpenAI agent to chat with the current website.
 
+https://github.com/user-attachments/assets/f5d756e6-47af-4bf3-a4bb-741be55cd5dc
 
-[![Video](./video.mp4)
-](https://github.com/chengfengfengwang/reading-assistant/assets/23279667/30abb679-fbce-455d-a219-f521a0cb3bd3
-)
 
 ## how to use
 1. download and unzip reading-assistant.zip from this project's releases
