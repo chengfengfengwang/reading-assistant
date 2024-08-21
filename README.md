@@ -4,9 +4,8 @@
 一个谷歌浏览器插件。使用OpenAI Agent和当前网页对话。
 
 
-[![Video](./video.mp4)
-](https://github.com/chengfengfengwang/reading-assistant/assets/23279667/30abb679-fbce-455d-a219-f521a0cb3bd3
-)
+https://github.com/user-attachments/assets/a39f40ec-72ad-4b9d-87c8-a16008f9adf5
+
 
 ## 下载使用
 1. 从releases下载
