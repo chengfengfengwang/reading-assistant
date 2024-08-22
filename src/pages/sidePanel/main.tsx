@@ -8,7 +8,6 @@ import { useSetting } from "@/hooks/useSetting";
 import { toastManager, ToastContainer } from "@/components/toast";
 import { Settings, Eraser, FileTerminal, TextSearch } from "lucide-react";
 import { defaultSetting } from "@/const";
-let currentSelectionText = "";
 type ConversationExpose = React.ElementRef<typeof Conversation>;
 
 export default function App() {
