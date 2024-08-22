@@ -9,7 +9,7 @@ https://github.com/user-attachments/assets/63b52d2d-9f3c-44b2-b091-441a83e6f7be
 
 ## 下载使用
 1. 从releases下载
-2. 解压reading-assistant.zip，在浏览器扩展加载该文件
+2. 解压dist.zip，在浏览器扩展加载该文件
 3. 输入自己的OpenAI Key
 
 ## development

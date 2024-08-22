@@ -7,7 +7,7 @@ https://github.com/user-attachments/assets/f5d756e6-47af-4bf3-a4bb-741be55cd5dc
 
 
 ## how to use
-1. download and unzip reading-assistant.zip from this project's releases
+1. download and unzip dist.zip from this project's releases
 2. open chrome browser and load the unziped folder
 3. write your own openAI key in extension
 
