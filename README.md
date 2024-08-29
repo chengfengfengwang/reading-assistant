@@ -3,7 +3,7 @@
 # reading-assistant
 一个谷歌浏览器插件。使用OpenAI embedding补充对话上下文和当前网页对话。
 
-https://github.com/user-attachments/assets/b81c258f-26e2-451f-944d-430f196bd5b4
+https://github.com/user-attachments/assets/d5b159e3-343f-41e6-9e6f-4232cc52ade4
 
 https://github.com/user-attachments/assets/63b52d2d-9f3c-44b2-b091-441a83e6f7be
 
